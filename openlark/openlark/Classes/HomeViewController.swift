@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  openlark
 //
 //  Created by AlexChen on 2021/09/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,4 +24,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
