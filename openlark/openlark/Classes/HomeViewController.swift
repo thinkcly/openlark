@@ -10,10 +10,12 @@ import UIKit
 class HomeViewController: UIViewController {
 
     var checkinTime = ""   // year-month-day hour:minute:second
-    var week = "week-39"
-    let delayTime = 3
+    let week = "week-39"
+    let delay = 0
+    var timerCount: Double = 0
+    let loopInterval: TimeInterval = 10
     var larkIsOpen: ((_ result: Bool) -> Void)?
-    let loopTimeInterVal: Double = 3
+    var checkInSuccess = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,62 +26,52 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        prepare()
+        startTimer()
         
-//        loadSchemeConfig()
-        
-//        let result = performCheckIn()
-//        if result == false {
-//            // retry check-in after a few second
-//        }
-
-//        self.larkIsOpen = { (result) in
-//            switch result {
-//            case true:
-//                // check-in successful
-//                break
-//            case false:
-//                // check-in failed
-//                break
-//            }
-//        }
-    }
-    
-    func prepare() {
-        let timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
-        timer.schedule(deadline: .now() + 0.1, repeating: loopTimeInterVal)
-        print(" -> 即将开始循环")
-
-        timer.setEventHandler {
-            print(" -> 开始循环")
-            DispatchQueue.main.async {
-                self.loadSchemeConfig()
+        self.larkIsOpen = { [self] (result) in
+            switch result {
+            case true:
+                checkInSuccess = true
+                print(" -> Lark: ALready opened")
+            case false:
+                print("Can not open lark via 'Feishu://'. Maybe lark not install on this device.")
             }
         }
-        timer.resume()
-        
-//        timer.setEventHandler {
-//            DispatchQueue.main.async {
-//                self.loadSchemeConfig()
-//            }
-//        }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + )
     }
     
-
-    func performCheckIn() -> Bool {
+    func startTimer() {
+        let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        timer.schedule(deadline: .now(), repeating: loopInterval)
+        print(" -> Loop: Start now")
+        
+        timer.setEventHandler(handler: { [self] in
+            print(" -> Loop: Already start")
+            timerCount += 0.01
+            if checkInSuccess {
+                print(" -> Loop: Canceled cause check-in was success")
+                timer.cancel()
+            } else {
+                DispatchQueue.main.async {
+                    loadSchemeConfig()
+                    performCheckIn()
+                }
+            }
+        })
+        timer.resume()
+    }
+    
+    func performCheckIn() {
         guard !checkinTime.isEmpty else {
-            return false
+            return
         }
         let checkInTime = getTimeIntervalFrom(checkinTime)
         let timeInterval = getCurrentDate()
         let differ = timeInterval - checkInTime
         
-        guard differ > delayTime else {
-            return false
+        guard differ > delay else {
+            return
         }
         openLark()
-        return true
     }
 }
 
