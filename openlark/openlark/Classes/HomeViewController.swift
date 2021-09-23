@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     var week = "week-39"
     let delayTime = 3
     var larkIsOpen: ((_ result: Bool) -> Void)?
+    let loopTimeInterVal: Double = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +24,15 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        loadSchemeConfig()
+        prepare()
+        
+//        loadSchemeConfig()
         
 //        let result = performCheckIn()
 //        if result == false {
 //            // retry check-in after a few second
 //        }
-//
+
 //        self.larkIsOpen = { (result) in
 //            switch result {
 //            case true:
@@ -40,6 +43,27 @@ class HomeViewController: UIViewController {
 //                break
 //            }
 //        }
+    }
+    
+    func prepare() {
+        let timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
+        timer.schedule(deadline: .now() + 0.1, repeating: loopTimeInterVal)
+        print(" -> 即将开始循环")
+
+        timer.setEventHandler {
+            print(" -> 开始循环")
+            DispatchQueue.main.async {
+                self.loadSchemeConfig()
+            }
+        }
+        timer.resume()
+        
+//        timer.setEventHandler {
+//            DispatchQueue.main.async {
+//                self.loadSchemeConfig()
+//            }
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + )
     }
     
 
