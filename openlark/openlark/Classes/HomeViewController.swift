@@ -97,12 +97,14 @@ extension HomeViewController {
         }
         
         for item in dataArr {
-            if let item = item as? Dictionary<String, String>,
-               let date = item["date"],
-               let time = item["time"],
-               item["date"] == today {
+            if let item = item as? Dictionary<String, Any>,
+               let date = item["date"] as? String,
+               let time = item["time"] as? String,
+               let status = item["alreadyCheckIn"] as? Bool,
+               date == today,
+               status == false {
                 
-                let checkinDate = ConfigModel.init(date: date, time: time)
+                let checkinDate = ConfigModel.init(date: date, time: time, alreadyCheckIn: status)
                 checkinTime = checkinDate.time
                 print(" -> checkInTime = \(checkinTime)")
                 break

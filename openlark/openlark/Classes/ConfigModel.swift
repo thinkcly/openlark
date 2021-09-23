@@ -10,4 +10,5 @@ import Foundation
 struct ConfigModel: Codable {
     let date: String
     let time: String
+    let alreadyCheckIn: Bool
 }

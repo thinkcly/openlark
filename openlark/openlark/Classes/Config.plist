@@ -9,42 +9,56 @@
 			<string>2021-09-19</string>
 			<key>time</key>
 			<string>2021-09-19 09:43:16</string>
+			<key>alreadyCheckIn</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-20</string>
 			<key>time</key>
 			<string>2021-09-20 09:49:53</string>
+			<key>alreadyCheckIn</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-21</string>
 			<key>time</key>
 			<string>2021-09-21 09:48:24</string>
+			<key>alreadyCheckIn</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-22</string>
 			<key>time</key>
 			<string>2021-09-22 09:40:41</string>
+			<key>alreadyCheckIn</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-23</string>
 			<key>time</key>
 			<string>2021-09-23 09:47:25</string>
+			<key>alreadyCheckIn</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-24</string>
 			<key>time</key>
 			<string>2021-09-24 09:38:29</string>
+			<key>alreadyCheckIn</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>date</key>
 			<string>2021-09-25</string>
 			<key>time</key>
 			<string>2021-09-25 09:35:11</string>
+			<key>alreadyCheckIn</key>
+			<false/>
 		</dict>
 	</array>
 </dict>
