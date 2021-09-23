@@ -26,6 +26,7 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        loadSchemeConfig()
         startTimer()
         
         self.larkIsOpen = { [self] (result) in
@@ -52,7 +53,6 @@ class HomeViewController: UIViewController {
                 timer.cancel()
             } else {
                 DispatchQueue.main.async {
-                    loadSchemeConfig()
                     performCheckIn()
                 }
             }
@@ -86,8 +86,15 @@ extension HomeViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(identifier: "Asia/Shanghai")
-        let today = formatter.string(from: Date())
-        print(" -> today = \(today)")
+        print(" -> TimeZone = \(TimeZone.current.identifier)")
+        
+//        let today = formatter.string(from: Date())
+//        print(" -> today = \(today)")
+        
+        let interval: TimeInterval = 60 * 60 * 24   // Delay 24 Hours
+        // auto transfer UTC to Asia/Shanghai ( + 8 Hours) by 'DateFormatter' cause already set timezone
+        let tomorrow = formatter.string(from: Date().addingTimeInterval(interval))
+        print(" -> tomorrow = \(tomorrow)")
         
         guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
               let data = NSDictionary(contentsOfFile: path),
@@ -101,8 +108,8 @@ extension HomeViewController {
                let date = item["date"] as? String,
                let time = item["time"] as? String,
                let status = item["alreadyCheckIn"] as? Bool,
-               date == today,
-               status == false {
+//               status == false {
+               date == tomorrow {
                 
                 let checkinDate = ConfigModel.init(date: date, time: time, alreadyCheckIn: status)
                 checkinTime = checkinDate.time
