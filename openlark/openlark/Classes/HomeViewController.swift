@@ -9,20 +9,21 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    let checkinDate = "2021-09-23 17:21:00"   // year-month-day hour:minute:second
+    var checkinTime = ""   // year-month-day hour:minute:second
     var week = "week-39"
-    let delayTime = 10
+    let delayTime = 3
     var larkIsOpen: ((_ result: Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .gray
-        loadSchemeConfig()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        loadSchemeConfig()
         
 //        let result = performCheckIn()
 //        if result == false {
@@ -43,7 +44,10 @@ class HomeViewController: UIViewController {
     
 
     func performCheckIn() -> Bool {
-        let checkInTime = getTimeIntervalFrom(checkinDate)
+        guard !checkinTime.isEmpty else {
+            return false
+        }
+        let checkInTime = getTimeIntervalFrom(checkinTime)
         let timeInterval = getCurrentDate()
         let differ = timeInterval - checkInTime
         
@@ -82,8 +86,9 @@ extension HomeViewController {
                let time = item["time"],
                item["date"] == today {
                 
-                let checkInTime = ConfigModel.init(date: date, time: time)
-                print(" -> checkInTime = \(checkInTime)")
+                let checkinDate = ConfigModel.init(date: date, time: time)
+                checkinTime = checkinDate.time
+                print(" -> checkInTime = \(checkinTime)")
                 break
             }
         }
