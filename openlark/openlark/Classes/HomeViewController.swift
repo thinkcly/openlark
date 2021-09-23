@@ -64,9 +64,9 @@ class HomeViewController: UIViewController {
         guard !checkinTime.isEmpty else {
             return
         }
-        let checkInTime = getTimeIntervalFrom(checkinTime)
-        let timeInterval = getCurrentDate()
-        let differ = timeInterval - checkInTime
+        let target = getCheckInTimeStampFrom(checkinTime)
+        let now = getCurrentTimeStamp()
+        let differ = now - target
         
         guard differ > delay else {
             return
@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController {
     
-    func getCurrentDate() -> Int {
+    func getCurrentTimeStamp() -> Int {
         let timeInterval = Int(Date().timeIntervalSince1970)
         return timeInterval
     }
@@ -110,7 +110,7 @@ extension HomeViewController {
         }
     }
     
-    func getTimeIntervalFrom(_ string: String) -> Int {
+    func getCheckInTimeStampFrom(_ string: String) -> Int {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.timeZone = TimeZone(identifier: "Asia/Shanghai")
