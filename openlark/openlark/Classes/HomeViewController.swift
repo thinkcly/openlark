@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     let checkinDate = "2021-09-23 17:21:00"   // year-month-day hour:minute:second
+    var week = "week-39"
     let delayTime = 10
     var larkIsOpen: ((_ result: Bool) -> Void)?
     
@@ -17,26 +18,27 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .gray
+        loadSchemeConfig()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let result = performCheckIn()
-        if result == false {
-            // retry check-in after a few second
-        }
-        
-        self.larkIsOpen = { (result) in
-            switch result {
-            case true:
-                // check-in successful
-                break
-            case false:
-                // check-in failed
-                break
-            }
-        }
+//        let result = performCheckIn()
+//        if result == false {
+//            // retry check-in after a few second
+//        }
+//
+//        self.larkIsOpen = { (result) in
+//            switch result {
+//            case true:
+//                // check-in successful
+//                break
+//            case false:
+//                // check-in failed
+//                break
+//            }
+//        }
     }
     
 
@@ -58,6 +60,33 @@ extension HomeViewController {
     func getCurrentDate() -> Int {
         let timeInterval = Int(Date().timeIntervalSince1970)
         return timeInterval
+    }
+    
+    func loadSchemeConfig() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "Asia/Shanghai")
+        let today = formatter.string(from: Date())
+        print(" -> today = \(today)")
+        
+        guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+              let data = NSDictionary(contentsOfFile: path),
+              let dataArr = data.object(forKey: week) as? Array<Any> else {
+            
+            return
+        }
+        
+        for item in dataArr {
+            if let item = item as? Dictionary<String, String>,
+               let date = item["date"],
+               let time = item["time"],
+               item["date"] == today {
+                
+                let checkInTime = ConfigModel.init(date: date, time: time)
+                print(" -> checkInTime = \(checkInTime)")
+                break
+            }
+        }
     }
     
     func getTimeIntervalFrom(_ string: String) -> Int {

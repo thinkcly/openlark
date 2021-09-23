@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>week-39</key>
+	<array>
+		<dict>
+			<key>date</key>
+			<string>2021-09-19</string>
+			<key>time</key>
+			<string>2021-09-19 08:43:16</string>
+		</dict>
+		<dict>
+			<key>date</key>
+			<string>2021-09-20</string>
+			<key>time</key>
+			<string>2021-09-20 08:49:53</string>
+		</dict>
+		<dict>
+			<key>date</key>
+			<string>2021-09-21</string>
+			<key>time</key>
+			<string>2021-09-21 08:48:24</string>
+		</dict>
+		<dict>
+			<key>date</key>
+			<string>2021-09-22</string>
+			<key>time</key>
+			<string>2021-09-22 08:40:41</string>
+		</dict>
+		<dict>
+			<key>date</key>
+			<string>2021-09-23</string>
+			<key>time</key>
+			<string>2021-09-23 08:47:25</string>
+		</dict>
+		<dict>
+			<key>date</key>
+			<string>2021-09-24</string>
+			<key>time</key>
+			<string>2021-09-24 08:42:29</string>
+		</dict>
+	</array>
+</dict>
+</plist>
