@@ -90,6 +90,8 @@ extension HomeViewController {
         
 //        let today = formatter.string(from: Date())
 //        print(" -> today = \(today)")
+//        formatter.dateStyle = .medium
+//        formatter.timeStyle = .medium
         
         let interval: TimeInterval = 60 * 60 * 24   // Delay 24 Hours
         // auto transfer UTC to Asia/Shanghai ( + 8 Hours) by 'DateFormatter' cause already set timezone
